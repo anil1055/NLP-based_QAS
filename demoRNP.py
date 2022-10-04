@@ -5,6 +5,10 @@ from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 from nltk.corpus import wordnet
 import preProcess
+import spacy
+from spacy import displacy
+from collections import Counter
+import en_core_web_sm
 
 nlp = en_core_web_sm.load()
 def findAnswerType(pos_txt):
