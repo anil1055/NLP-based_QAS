@@ -1,3 +1,8 @@
+import nltk
+import string
+from nltk.corpus import stopwords 
+from nltk.tokenize import word_tokenize
+
 def punctionProcess(text):
     out = str(text).maketrans('','', string.punctuation)
     result = str(text).translate(out)
