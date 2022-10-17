@@ -7,15 +7,16 @@ from collections import OrderedDict
 from nltk.corpus import wordnet
 from spacy import displacy
 from collections import Counter
+import demoRNP
+import qaProcess
+import preProcess
 
 def demoProcess(question, paragraph, answer, lemma):
-  question = punctionProcess(question)
+  question = preProcess.punctionProcess(question)
   X_list = word_tokenize(question) 
-  preProcess = [X_list]
-   
-  questionSearch = defineQuestionTerm(preProcess)
+  questionSearch = qaProcess.defineQuestionTerm([X_list])
   processes = 'Question terms: ' + questionSearch + '\n'
-  textSearch, path = searchWord(questionSearch, paragraph, lemma)
+  textSearch, path = qaProcess.searchWord(questionSearch, paragraph, lemma)
   texts = path.split('\n')
   print('Sorted sentence: ' + str(texts))
   txtInd = 0
@@ -57,7 +58,7 @@ questionSearch, sel_sentence = demoProcess(question, paragraph, response, lemma)
 print('Candidate sentence: ' + sel_sentence)
 totalFindAnswer = 0
 findCount = totalFindAnswer
-totalFindAnswer, process = demo(sel_sentence, answer, questionSearch, question, totalFindAnswer, 1, lemma)
+totalFindAnswer, process = demoRNP.demo(sel_sentence, answer, questionSearch, question, totalFindAnswer, 1, lemma)
 if totalFindAnswer != findCount:
   print('RC: Answer found successfully, answer: ' + answer)
   
@@ -68,7 +69,7 @@ answer = answer_examples[1]
 questionSearch, sel_sentence = demoProcess(question, paragraph, answer, lemma)
 totalFindAnswer = 0
 findCount = totalFindAnswer
-totalFindAnswer, process = demo(sel_sentence, answer, questionSearch, question, totalFindAnswer, 2, lemma)
+totalFindAnswer, process = demoRNP.demo(sel_sentence, answer, questionSearch, question, totalFindAnswer, 2, lemma)
 if totalFindAnswer != findCount:
   print(process)
   print('SNER: Answer found successfully, answer: ' + answer)
@@ -80,7 +81,7 @@ answer = answer_examples[2]
 questionSearch, sel_sentence = demoProcess(question, paragraph, answer, lemma)
 totalFindAnswer = 0
 findCount = totalFindAnswer
-totalFindAnswer, process = demo(sel_sentence, answer, questionSearch, question, totalFindAnswer, 3, lemma)
+totalFindAnswer, process = demoRNP.demo(sel_sentence, answer, questionSearch, question, totalFindAnswer, 3, lemma)
 if totalFindAnswer != findCount:
   print(process)
   print('SPOS: Answer found successfully, answer:' + answer)
